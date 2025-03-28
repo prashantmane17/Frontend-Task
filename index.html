@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -13,10 +18,10 @@
         <div class="navBar_lists">
             <div> <img src="./assets/svg/favicon 1.svg" alt=""></div>
             <div class="navbar_options">
-                <div><a href="">Shop</a></div>
-                <div><a href="">About Us</a></div>
-                <div><a href="">Our Store</a></div>
-                <div><a href="">Contct Us</a></div>
+                <a href="#">Shop</a>
+                <a href="#">About Us</a>
+                <a href="#">Our Store</a>
+                <a href="#">Contct Us</a>
             </div>
             <div class="navbar_rightside_icons">
                 <div class="search_icon_with_input">
@@ -38,6 +43,33 @@
         </div>
         <div class="banner_button">Invite Now</div>
     </div>
+    <div class="product_sections">
+        <div class="breadcrumbs">Home / Clothing / Mens Clothing / <span>All Mens Clothing</span></div>
+        <div class="filter_name"><span id="change_filter_name">All Products</span>( <span>25</span> Products)</div>
+        <div class="filters_container">
+            <div class="filters">
+                <span class="filters_label">FILTERS:</span>
+                <div class="filter_option active" data-category="all">All Products</div>
+                <div class="filter_option" data-category="T-shirt">Tee Shirts</div>
+                <div class="filter_option" data-category="Denim">Denim</div>
+                <div class="filter_option" data-category="Sweatshirt">Sweatshirts</div>
+                <div class="filter_option" data-category="Polo-T">Polo Tee Shirts</div>
+                <div class="filter_option" data-category="shirt">Shirt</div>
+            </div>
+            <div class="sort_container">
+                <span class="sort_label">Sort by:</span>
+                <select id="sort_select">
+                    <option value="low_high">Price Low To High</option>
+                    <option value="high_low">Price High To Low</option>
+                </select>
+            </div>
+        </div>
+        <div class="space_divider"></div>
+        <div id="all_products_cards">
+
+        </div>
+    </div>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

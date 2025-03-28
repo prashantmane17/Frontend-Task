@@ -34,15 +34,20 @@ function product_cards(product) {
     productContainer.appendChild(productCard);
 }
 const filter_options = document.querySelectorAll(".filter_option");
-
+const totalProduct = document.getElementById("total_products")
 filter_options.forEach(option => {
     option.addEventListener('click', (e) => {
+        filter_options.forEach(option => {
+            option.classList.remove("active");
+        })
+        e.target.classList.add("active")
+        const category = e.target.dataset.category;
         productContainer.innerHTML = "";
         productContainer.classList.remove("empty_products")
-        const category = e.target.dataset.category;
-        console.log(category, "ciiiii", products)
         products.forEach(product => {
-            if (product.tag === category) {
+            if (category === "all") {
+                product_cards(product)
+            } else if (product.tag === category) {
                 product_cards(product)
             }
         })
@@ -51,5 +56,6 @@ filter_options.forEach(option => {
             productContainer.classList.add("empty_products")
             productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
         }
+        totalProduct.textContent = filteredProduct.length
     })
 })

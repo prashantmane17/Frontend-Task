@@ -36,12 +36,63 @@ document.getElementById("sort_select").addEventListener("change", (e) => {
     sortedProducts(category, products)
 });
 
+const formatProductSize = (size) => {
+    switch (size) {
+        case "xs": return "XS";
+        case "small": return "SM";
+        case "medium": return "M";
+        case "large": return "L";
+        case "xl": return "XL";
+        case "38": return "XS";
+        case "39": return "SM";
+        case "40": return "M";
+        case "44": return "L";
+        case "48": return "XL";
+        case "46": return "XL";
+        default: return "Unknown"; // Handle unexpected values
+    }
+};
+const formatProductSizeNumber = (size) => {
+    switch (size) {
+        case "xs": return "38";
+        case "small": return "39";
+        case "medium": return "40";
+        case "large": return "44";
+        case "xl": return "48";
+        default: return size; // Handle unexpected values
+    }
+};
+
+
 function product_cards(product) {
     const productCard = document.createElement("div");
     productCard.classList.add("product_card");
     productCard.innerHTML = ` <div class="product-image">
                     <img src=${product.image_src} class=""
                         alt=${product.name} />
+                </div>
+                <div class="productActions">
+                <div class="addToCartButton">Add to Cart</div>
+                    
+                    <p data-title="sizeTitle" class="sizeTitle">Select Size</p>
+                    <div id="productSizes_number" class="productSizes_number">
+                     ${product.options.map((option) =>
+        `<button data-size="sizeSelection" data-id=${option.id}>${formatProductSizeNumber(option.value)}</button>`
+    ).join('')
+        } 
+                    </div>
+                    <div class="productSizes_tag">
+                        <span>Sizes:</span>
+                        ${product.options.map((option) =>
+            `<button data-id=${option.id}>${formatProductSize(option.value)}</button>`
+        ).join('')
+        }
+                    </div>
+                    <div class="product-pricing">
+                        <p class="price">$${product.price}</p>
+                        <p class="mrp-price"> $${product.compare_at_price}</p>
+                        <p class="discount">(50% OFF)</p>
+                    </div>
                 </div>
                 <div class="product-details">
                     <p class="product-title">${product.vendor}</p>
@@ -51,7 +102,7 @@ function product_cards(product) {
                         <p class="mrp-price"> $${product.compare_at_price}</p>
                         <p class="discount">(50% OFF)</p>
                     </div>
-                </div>`
+                </div>`;
     productContainer.appendChild(productCard);
 }
 

@@ -35,6 +35,11 @@ nav{
     align-items: center;
     gap: 10px;
 }
+.navbar_rightside_icons img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 .search_icon_with_input{
      display: flex;
     align-items: center;
@@ -136,6 +141,12 @@ outline: none;
 }
 .product_card {
     width: 262px;
+    transition: all 0.5s linear;
+    position: relative;
+}
+.product_card:hover {
+    transform: scale3d(1.1);
+    box-shadow: 0px 0px 10px rgb(219, 219, 219);
 }
 .product_card .product-image{
     width: 262px;
@@ -145,6 +156,60 @@ outline: none;
 width: 100%;
 height: 100%;
 object-fit: cover;
+}
+.product_card .productActions{
+    position: absolute;
+    background-color: #ffffff;
+    width: 100%;
+    bottom: 0;
+    opacity: 0;
+    padding: 0 10px;
+    transition: all 0.3s linear;
+}
+
+.product_card:hover .productActions .sizeTitle{
+    font-size: 12px;
+    padding: 10px 0 0;
+    font-weight: 500;
+}
+.product_card:hover .productActions{
+    opacity: 1;
+}
+.product_card .productActions .productSizes_number{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+     padding: 10px 0;
+}
+.product_card .productActions .productSizes_number button{
+    width: 37;
+    height: 47;
+    border-radius: 50%;
+    padding: 5px 7px;
+    border: 1px solid #c4c4c4;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.product_card .productActions .productSizes_tag {
+    /* padding:0 10px; */
+    font-size: 14px;
+    font-weight: 300;
+}
+.product_card .productActions .addToCartButton {
+    margin:4px 10px;
+    padding: 4px 0;
+    text-align:center ;
+    border-radius: 3px;
+    border: 1px solid #878787;
+    cursor: pointer;
+    display: none;
+}
+.product_card .productActions .productSizes_tag button{
+    border:none;
+    background: none;
+    font-weight: 300;
+    padding: 3px 4px;
 }
 .product_card .product-details{
     padding-top: 10px;
@@ -164,21 +229,20 @@ object-fit: cover;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.product_card .product-details .product-pricing{
+.product_card  .product-pricing{
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
     font-weight: 300;
 }
-.product-details .product-pricing .price{
+ .product-pricing .price{
     font-weight: 700;
 }
-.product-details .product-pricing .mrp-price{
+ .product-pricing .mrp-price{
  color: #878787;
  text-decoration: line-through;
-}
-.product-details .product-pricing .discount{
+}.product-pricing .discount{
 color: #f8a4a4;
 }
 #all_products_cards.empty_products{

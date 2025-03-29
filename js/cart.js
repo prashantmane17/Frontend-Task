@@ -33,6 +33,20 @@ const addToCart = (productId) => {
 const updateCart = () => {
     console.log("cart---", cartProducts)
     cartContainer.innerHTML = '';
+
+    if (cartProducts.length === 0) {
+        const cartEmptyMsg = `
+        <div class="cartEmptyMsg">
+                <p>
+                    Your cart is empty
+                </p>
+                <p>Add your favorite items to your cart</p>
+                <a href="/">Shop</a>
+            </div>
+        `;
+        cartContainer.innerHTML = cartEmptyMsg;
+        return;
+    }
     cartProducts.forEach(product => {
         const totalItemValue = Number(product.price) * Number(product.quantity)
         const cartItem = `<div class="singleProduct">

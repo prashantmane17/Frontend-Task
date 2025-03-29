@@ -1,6 +1,8 @@
 const cartDrawer = document.getElementById("cartDrawer");
 const cartContainer = document.getElementById("cartContainer");
 const cart = document.getElementById("product_cart");
+const cartFooter = document.getElementById("cartFooter");
+const cartValue = document.getElementById("cartValue");
 const closeDrawer = document.getElementById("closeCartDrawer");
 let cartProducts = [];
 cart.addEventListener("click", () => {
@@ -13,7 +15,10 @@ document.addEventListener("click", (e) => {
     if (e.target.classList.contains("addToCartButton")) {
         const productId = e.target.dataset.id;
         addToCart(productId);
-
+    }
+    else if (e.target.classList.contains("clearCart_value")) {
+        cartProducts = [];
+        updateCart();
     }
 });
 const addToCart = (productId) => {
@@ -32,8 +37,11 @@ const addToCart = (productId) => {
 }
 const updateCart = () => {
     console.log("cart---", cartProducts)
+    let subTotal = 0;
+    let totalItems = 0;
     cartContainer.innerHTML = '';
-
+    cartFooter.innerHTML = "";
+    cartValue.innerText = cartProducts.length;
     if (cartProducts.length === 0) {
         const cartEmptyMsg = `
         <div class="cartEmptyMsg">
@@ -48,7 +56,9 @@ const updateCart = () => {
         return;
     }
     cartProducts.forEach(product => {
-        const totalItemValue = Number(product.price) * Number(product.quantity)
+        const totalItemValue = Number(product.price) * Number(product.quantity);
+        subTotal += totalItemValue;
+        totalItems += Number(product.quantity);
         const cartItem = `<div class="singleProduct">
                 <div class="productImage">
                     <img src=${product.image_src} alt="">
@@ -56,7 +66,7 @@ const updateCart = () => {
                 <div class="productInfo">
                     <p class="itemTitle">${product.name}</p>
                     <p class="itemVendor">${product.vendor}</p>
-                    <button class="deleteItem"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
+                    <button class="deleteItem" onclick="deleteProduct(${product.id})"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
                             viewBox="0 0 1024 1024" version="1.1"
                             style="width: 1em; height: 1em; vertical-align: middle; fill: currentcolor; overflow: hidden;">
                             <path
@@ -77,6 +87,17 @@ const updateCart = () => {
             </div>`;
         cartContainer.innerHTML += cartItem;
     })
+    cartFooter.innerHTML = ` <div class="clear-cart__button">
+                <button class="clearCart_value">Clear Cart</button>
+            </div>
+            <div class="cart_subTotal">
+                <div class="subTotal_label">Sub total (${totalItems} items):</div>
+                <div class="subTotal_value">$ ${subTotal}</div>
+            </div>
+            <div class="cartAction">
+                <button class="checkout_Action">Checkout</button>
+            </div>
+    `
 }
 
 const changeProductQty = (value, id) => {
@@ -92,3 +113,9 @@ const changeProductQty = (value, id) => {
     }
     updateCart();
 };
+const deleteProduct = (id) => {
+    const productIndex = cartProducts.findIndex(product => id === product.id);
+    cartProducts.splice(productIndex, 1);
+    updateCart();
+}
+

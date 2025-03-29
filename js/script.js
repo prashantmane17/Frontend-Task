@@ -1,15 +1,23 @@
 const productContainer = document.getElementById("all_products_cards");
+const filter_options = document.querySelectorAll(".filter_option");
+const totalProduct = document.getElementById("total_products")
 let products = [];
 const intialCall = async () => {
     const resonse = await fetch("data/products.json");
     const data = await resonse.json();
-    products = data;
-    return data;
+    const sortedData = data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+    products = sortedData;
+    return sortedData;
 }
 intialCall().then(data => {
     data.forEach(product => {
         product_cards(product)
-
+        const filteredProduct = document.querySelectorAll(".product_card");
+        if (filteredProduct.length === 0) {
+            productContainer.classList.add("empty_products")
+            productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
+        }
+        totalProduct.textContent = filteredProduct.length
     });
 }).catch(error => {
     console.error("err")
@@ -33,8 +41,7 @@ function product_cards(product) {
                 </div>`
     productContainer.appendChild(productCard);
 }
-const filter_options = document.querySelectorAll(".filter_option");
-const totalProduct = document.getElementById("total_products")
+
 filter_options.forEach(option => {
     option.addEventListener('click', (e) => {
         filter_options.forEach(option => {

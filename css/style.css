@@ -200,7 +200,7 @@ color: #f8a4a4;
     right: 0;
     z-index: 10;
     height: 100vh;
-    width: 20rem;
+    width: 25rem;
     background: #fff;
     box-shadow: 0px 0px 10px rgb(143, 143, 143);
     transform: translateX(101%) ;
@@ -220,7 +220,7 @@ color: #f8a4a4;
     font-size: 14px;
     font-weight: 700;
 }
-.closeCartIcon{
+.cart_drawer .cartHeader .closeCartIcon{
     background: none;
     border: none;
     box-shadow: none;
@@ -230,7 +230,97 @@ color: #f8a4a4;
     top: 10px;
     right: 10px;
 }
-.closeCartIcon .close_icon{
+.cart_drawer .cartHeader .closeCartIcon .close_icon{
     width: 16px;
     height: 16px;
+}
+
+.cart_drawer .cartProducts{
+padding: 10px;
+}
+.cart_drawer .cartProducts .singleProduct{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.singleProduct .productImage{
+    width: 90px;
+    height: 100px;
+    padding: 10px 5px;
+}
+.singleProduct .productImage img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.singleProduct .productInfo{
+margin-left: 10px;
+display: flex;
+flex-flow: row wrap;
+width: calc(100% -90px);
+position: relative;
+}
+.singleProduct .productInfo .itemTitle{
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+}
+.singleProduct .productInfo .itemVendor{
+    width: 100%;
+    font-size: 12px;
+    color: #7b7b7b;
+}
+.singleProduct .productInfo .itemSize{
+    width: 100%;
+    font-weight: 400;
+    font-size: 12px;
+    color: #ff8686;
+}
+.singleProduct .productInfo .deleteItem{
+    background: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    padding:2px 4px ;
+    border-radius: 5px;
+}
+.singleProduct .productInfo .deleteItem:hover{
+    background-color: #e7e7e7;
+}
+.singleProduct .productInfo .itemQuantity{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.singleProduct .productInfo .itemQuantity button{
+    border: 1px solid #c4c4c4;
+    background:none;
+    padding: 1px 7px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}  
+.singleProduct .productInfo .itemQuantity button:hover{
+background-color: #f4f4f4;
+} 
+.singleProduct .productInfo .itemQuantity span{
+    border-top: 1px solid #c4c4c4;;
+    border-bottom: 1px solid #c4c4c4;
+    padding: 1px 7px;
+    font-size: 14px;
+    font-weight: 700;
+     width: 3rem;
+     text-align: center;
+     cursor: default;
+}
+.singleProduct .productInfo .itemPrice{
+    width: 50%;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 14px ;
+    font-weight: 600;
 }

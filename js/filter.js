@@ -1,6 +1,7 @@
 const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
-const totalProduct = document.getElementById("total_products")
+const totalProduct = document.getElementById("total_products");
+
 let products = [];
 const intialCall = async () => {
     const resonse = await fetch("data/products.json");
@@ -18,6 +19,20 @@ intialCall().then(data => {
             productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
         }
         totalProduct.textContent = filteredProduct.length
+
+    });
+    const elements = document.querySelectorAll('[data-size="sizeSelection"]');
+    elements.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const id = e.currentTarget.dataset.id;
+            console.log("Selected Size ID:", id);
+            const addToCartButton = document.getElementById(`addToCartButton_${id}`);
+            const sizeText = document.querySelector(`[data-title="sizeTitle${id}"]`);
+            const sizes = document.getElementById(`productSizes_number${id}`);
+            addToCartButton.style.display = "block";
+            sizeText.style.display = "none";
+            sizes.style.display = "none";
+        });
     });
 }).catch(error => {
     console.error("err")
@@ -72,12 +87,13 @@ function product_cards(product) {
                         alt=${product.name} />
                 </div>
                 <div class="productActions">
-                <div class="addToCartButton">Add to Cart</div>
+                
+                <div id="addToCartButton_${product.id}" data-id=${product.id}  class="addToCartButton">Add to Cart</div>
                     
-                    <p data-title="sizeTitle" class="sizeTitle">Select Size</p>
-                    <div id="productSizes_number" class="productSizes_number">
+                    <p data-title="sizeTitle${product.id}" class="sizeTitle">Select Size</p>
+                    <div id="productSizes_number${product.id}" class="productSizes_number">
                      ${product.options.map((option) =>
-        `<button data-size="sizeSelection" data-id=${option.id}>${formatProductSizeNumber(option.value)}</button>`
+        `<button data-size="sizeSelection" data-id=${product.id}>${formatProductSizeNumber(option.value)}</button>`
     ).join('')
         } 
                     </div>

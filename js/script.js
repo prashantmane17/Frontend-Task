@@ -22,6 +22,19 @@ intialCall().then(data => {
 }).catch(error => {
     console.error("err")
 })
+document.getElementById("sort_select").addEventListener("change", (e) => {
+    const value = e.target.value;
+    if (value === "low_high") {
+        products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else {
+        products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    }
+
+    productContainer.innerHTML = "";
+    const filter_option = document.querySelector(".filter_option.active");
+    const category = filter_option.dataset.category;
+    sortedProducts(category, products)
+});
 
 function product_cards(product) {
     const productCard = document.createElement("div");
@@ -49,20 +62,24 @@ filter_options.forEach(option => {
         })
         e.target.classList.add("active")
         const category = e.target.dataset.category;
-        productContainer.innerHTML = "";
-        productContainer.classList.remove("empty_products")
-        products.forEach(product => {
-            if (category === "all") {
-                product_cards(product)
-            } else if (product.tag === category) {
-                product_cards(product)
-            }
-        })
-        const filteredProduct = document.querySelectorAll(".product_card");
-        if (filteredProduct.length === 0) {
-            productContainer.classList.add("empty_products")
-            productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
-        }
-        totalProduct.textContent = filteredProduct.length
+        sortedProducts(category, products);
     })
 })
+
+const sortedProducts = (category, products) => {
+    productContainer.innerHTML = "";
+    productContainer.classList.remove("empty_products")
+    products.forEach(product => {
+        if (category === "all") {
+            product_cards(product)
+        } else if (product.tag === category) {
+            product_cards(product)
+        }
+    })
+    const filteredProduct = document.querySelectorAll(".product_card");
+    if (filteredProduct.length === 0) {
+        productContainer.classList.add("empty_products")
+        productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
+    }
+    totalProduct.textContent = filteredProduct.length
+}

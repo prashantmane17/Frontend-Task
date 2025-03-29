@@ -389,27 +389,4 @@ background-color: #f4f4f4;
     font-size: 14px ;
     font-weight: 600;
 }
-.cartProducts .cartEmptyMsg{
-font-size: 16px;
-color: #7b7b7b;
-text-align: center;
-}
-.cartProducts .cartEmptyMsg p{
-padding: 10px;
-}
-.cartProducts .cartEmptyMsg a{
-  display: block;
-  margin: 10px 20px;
-    text-decoration: none ;
-    /* border: 2px solid #ed1c25; */
-    border-radius: 5px;
-    box-shadow: none;
-    background: #ed1c25 !important;
-    padding: 10px 15px;
-    
-    height: auto;
-    text-align: center;
-    color: #fff;
-    font-size: 16px;
-    
-}
+

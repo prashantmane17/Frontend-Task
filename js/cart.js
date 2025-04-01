@@ -14,15 +14,24 @@ closeDrawer.addEventListener("click", () => {
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("addToCartButton")) {
         const productId = e.target.dataset.id;
-        addToCart(productId);
+        const productSizeId = e.target.dataset.sizeid;
+        console.log("jiii---", productSizeId)
+        cartDrawer.classList.add("active");
+        const addToCartButton = document.getElementById(`addToCartButton_${productId}`);
+        const sizeText = document.querySelector(`[data-title="sizeTitle${productId}"]`);
+        const sizes = document.getElementById(`productSizes_number${productId}`);
+        addToCartButton.style.display = "none";
+        sizeText.style.display = "block";
+        sizes.style.display = "flex";
+        addToCart(productId, productSizeId);
     }
     else if (e.target.classList.contains("clearCart_value")) {
         cartProducts = [];
         updateCart();
     }
 });
-const addToCart = (productId) => {
-    const product = cartProducts.find(item => productId === item.id.toString());
+const addToCart = (productId, productSizeId) => {
+    const product = cartProducts.find(item => productSizeId === item.productId.toString());
     if (product) {
         product.quantity++;
     }
@@ -30,7 +39,7 @@ const addToCart = (productId) => {
         const selectedItem = products.find(item => productId === item.id.toString());
         console.log("cart---", selectedItem)
         if (selectedItem) {
-            cartProducts.push({ ...selectedItem, quantity: 1 });
+            cartProducts.push({ ...selectedItem, quantity: 1, productId: productSizeId });
         }
     }
     updateCart();
@@ -59,14 +68,15 @@ const updateCart = () => {
         const totalItemValue = Number(product.price) * Number(product.quantity);
         subTotal += totalItemValue;
         totalItems += Number(product.quantity);
+        const size = product.options.find(option => option.id.toString() === product.productId.toString())
         const cartItem = `<div class="singleProduct">
                 <div class="productImage">
                     <img src=${product.image_src} alt="">
                 </div>
                 <div class="productInfo">
                     <p class="itemTitle">${product.name}</p>
-                    <p class="itemVendor">${product.vendor}</p>
-                    <button class="deleteItem" onclick="deleteProduct(${product.id})"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
+                    <p class="itemVendor">Size:${formatProductSizeNumber(size.value)}</p>
+                    <button class="deleteItem" onclick="deleteProduct(${product.productId})"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
                             viewBox="0 0 1024 1024" version="1.1"
                             style="width: 1em; height: 1em; vertical-align: middle; fill: currentcolor; overflow: hidden;">
                             <path
@@ -78,9 +88,9 @@ const updateCart = () => {
                         </svg>
                     </button>
                     <div class="itemQuantity">
-                        <button class="itemQuantity_button" onclick="changeProductQty(-1, ${product.id})"> - </button>
+                        <button class="itemQuantity_button" onclick="changeProductQty(-1, ${product.productId})"> - </button>
                         <span class="itemQuantity_value">${product.quantity}</span>
-                        <button class="itemQuantity_button" onclick="changeProductQty(1, ${product.id})"> + </button>
+                        <button class="itemQuantity_button" onclick="changeProductQty(1, ${product.productId})"> + </button>
                     </div>
                     <div class="itemPrice">$ ${totalItemValue}</div>
                 </div>
@@ -101,20 +111,19 @@ const updateCart = () => {
 }
 
 const changeProductQty = (value, id) => {
-    const productIndex = cartProducts.findIndex(product => id === product.id);
-
-    if (productIndex !== -1) { // Check if product exists
+    const productIndex = cartProducts.findIndex(product => id.toString() === product.productId.toString());
+    if (productIndex !== -1) {
         let selectedProduct = cartProducts[productIndex];
         selectedProduct.quantity += value;
 
         if (selectedProduct.quantity <= 0) {
-            cartProducts.splice(productIndex, 1); // Remove item if quantity is 0 or less
+            cartProducts.splice(productIndex, 1);
         }
     }
     updateCart();
 };
 const deleteProduct = (id) => {
-    const productIndex = cartProducts.findIndex(product => id === product.id);
+    const productIndex = cartProducts.findIndex(product => id.toString() === product.productId.toString());
     cartProducts.splice(productIndex, 1);
     updateCart();
 }

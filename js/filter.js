@@ -1,7 +1,6 @@
 const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
 const totalProduct = document.getElementById("total_products");
-
 let products = [];
 const intialCall = async () => {
     const resonse = await fetch("data/products.json");
@@ -21,19 +20,7 @@ intialCall().then(data => {
         totalProduct.textContent = filteredProduct.length
 
     });
-    const elements = document.querySelectorAll('[data-size="sizeSelection"]');
-    elements.forEach(item => {
-        item.addEventListener('click', (e) => {
-            const id = e.currentTarget.dataset.id;
-            console.log("Selected Size ID:", id);
-            const addToCartButton = document.getElementById(`addToCartButton_${id}`);
-            const sizeText = document.querySelector(`[data-title="sizeTitle${id}"]`);
-            const sizes = document.getElementById(`productSizes_number${id}`);
-            addToCartButton.style.display = "block";
-            sizeText.style.display = "none";
-            sizes.style.display = "none";
-        });
-    });
+    addToCartFun();
 }).catch(error => {
     console.error("err")
 })
@@ -50,6 +37,23 @@ document.getElementById("sort_select").addEventListener("change", (e) => {
     const category = filter_option.dataset.category;
     sortedProducts(category, products)
 });
+const addToCartFun = () => {
+    const elements = document.querySelectorAll('[data-size="sizeSelection"]');
+    elements.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const id = e.currentTarget.dataset.id;
+            const sizeId = e.currentTarget.dataset.sizeid;
+            console.log("Selected Size ID:", sizeId);
+            const addToCartButton = document.getElementById(`addToCartButton_${id}`);
+            const sizeText = document.querySelector(`[data-title="sizeTitle${id}"]`);
+            const sizes = document.getElementById(`productSizes_number${id}`);
+            addToCartButton.style.display = "block";
+            addToCartButton.dataset.sizeid = sizeId
+            sizeText.style.display = "none";
+            sizes.style.display = "none";
+        });
+    });
+}
 
 const formatProductSize = (size) => {
     switch (size) {
@@ -88,19 +92,19 @@ function product_cards(product) {
                 </div>
                 <div class="productActions">
                 
-                <div id="addToCartButton_${product.id}" data-id=${product.id}  class="addToCartButton">Add to Cart</div>
+                <div id="addToCartButton_${product.id}" data-id=${product.id} data-sizeid="0"  class="addToCartButton">Add to Cart</div>
                     
                     <p data-title="sizeTitle${product.id}" class="sizeTitle">Select Size</p>
                     <div id="productSizes_number${product.id}" class="productSizes_number">
                      ${product.options.map((option) =>
-        `<button data-size="sizeSelection" data-id=${product.id}>${formatProductSizeNumber(option.value)}</button>`
+        `<button data-size="sizeSelection" data-id=${product.id} data-sizeid=${option.id}>${formatProductSizeNumber(option.value)}</button>`
     ).join('')
         } 
                     </div>
                     <div class="productSizes_tag">
                         <span>Sizes:</span>
                         ${product.options.map((option) =>
-            `<button data-id=${option.id}>${formatProductSize(option.value)}</button>`
+            `<button>${formatProductSize(option.value)}</button>`
         ).join('')
         }
                     </div>
@@ -136,6 +140,7 @@ filter_options.forEach(option => {
 const sortedProducts = (category, products) => {
     productContainer.innerHTML = "";
     productContainer.classList.remove("empty_products")
+
     products.forEach(product => {
         if (category === "all") {
             product_cards(product)
@@ -149,4 +154,5 @@ const sortedProducts = (category, products) => {
         productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
     }
     totalProduct.textContent = filteredProduct.length
+    addToCartFun();
 }

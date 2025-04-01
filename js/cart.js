@@ -4,25 +4,31 @@ const cart = document.getElementById("product_cart");
 const cartFooter = document.getElementById("cartFooter");
 const cartValue = document.getElementById("cartValue");
 const closeDrawer = document.getElementById("closeCartDrawer");
+const cartOverlay = document.getElementById("cartOverlay");
+const body = document.querySelector("body");
 let cartProducts = [];
+const toggleCart = (open) => {
+    cartDrawer.classList.toggle("active", open);
+    cartOverlay.classList.toggle("active", open);
+    body.classList.toggle("no-scroll", open);
+};
 cart.addEventListener("click", () => {
-    cartDrawer.classList.add("active")
+    toggleCart(true);
 })
 closeDrawer.addEventListener("click", () => {
-    cartDrawer.classList.remove("active")
+    toggleCart(false)
+})
+cartOverlay.addEventListener("click", () => {
+    toggleCart(false)
 })
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("addToCartButton")) {
         const productId = e.target.dataset.id;
         const productSizeId = e.target.dataset.sizeid;
-        console.log("jiii---", productSizeId)
-        cartDrawer.classList.add("active");
-        const addToCartButton = document.getElementById(`addToCartButton_${productId}`);
-        const sizeText = document.querySelector(`[data-title="sizeTitle${productId}"]`);
-        const sizes = document.getElementById(`productSizes_number${productId}`);
-        addToCartButton.style.display = "none";
-        sizeText.style.display = "block";
-        sizes.style.display = "flex";
+        toggleCart(true)
+        document.getElementById(`addToCartButton_${productId}`).style.display = "none";
+        document.querySelector(`[data-title="sizeTitle${productId}"]`).style.display = "block";
+        document.getElementById(`productSizes_number${productId}`).style.display = "flex";
         addToCart(productId, productSizeId);
     }
     else if (e.target.classList.contains("clearCart_value")) {
@@ -45,7 +51,6 @@ const addToCart = (productId, productSizeId) => {
     updateCart();
 }
 const updateCart = () => {
-    console.log("cart---", cartProducts)
     let subTotal = 0;
     let totalItems = 0;
     cartContainer.innerHTML = '';
@@ -54,9 +59,7 @@ const updateCart = () => {
     if (cartProducts.length === 0) {
         const cartEmptyMsg = `
         <div class="cartEmptyMsg">
-                <p>
-                    Your cart is empty
-                </p>
+                <p>Your cart is empty</p>
                 <p>Add your favorite items to your cart</p>
                 <a href="/">Shop</a>
             </div>
@@ -79,11 +82,9 @@ const updateCart = () => {
                     <button class="deleteItem" onclick="deleteProduct(${product.productId})"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
                             viewBox="0 0 1024 1024" version="1.1"
                             style="width: 1em; height: 1em; vertical-align: middle; fill: currentcolor; overflow: hidden;">
-                            <path
-                                d="M707 992H317c-51.3 0-93.5-40.2-95.9-91.4l-29.1-611c-0.8-17.7 12.8-32.7 30.4-33.5 17.5-1.1 32.7 12.8 33.5 30.4l29.1 611c0.8 17.1 14.8 30.5 32 30.5h390c17.1 0 31.2-13.4 32-30.5l29.1-611c0.8-17.7 16.4-31.2 33.5-30.4 17.7 0.8 31.3 15.8 30.4 33.5l-29.1 611c-2.5 51.2-44.6 91.4-95.9 91.4zM864 192H160c-17.7 0-32-14.3-32-32s14.3-32 32-32h704c17.7 0 32 14.3 32 32s-14.3 32-32 32zM576 96H448c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            <path d="M707 992H317c-51.3 0-93.5-40.2-95.9-91.4l-29.1-611c-0.8-17.7 12.8-32.7 30.4-33.5 17.5-1.1 32.7 12.8 33.5 30.4l29.1 611c0.8 17.1 14.8 30.5 32 30.5h390c17.1 0 31.2-13.4 32-30.5l29.1-611c0.8-17.7 16.4-31.2 33.5-30.4 17.7 0.8 31.3 15.8 30.4 33.5l-29.1 611c-2.5 51.2-44.6 91.4-95.9 91.4zM864 192H160c-17.7 0-32-14.3-32-32s14.3-32 32-32h704c17.7 0 32 14.3 32 32s-14.3 32-32 32zM576 96H448c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
                                 fill="#243154"></path>
-                            <path
-                                d="M448 768c-17.7 0-32-14.3-32-32V384c0-17.7 14.3-32 32-32s32 14.3 32 32v352c0 17.7-14.3 32-32 32zM576 768c-17.7 0-32-14.3-32-32V384c0-17.7 14.3-32 32-32s32 14.3 32 32v352c0 17.7-14.3 32-32 32z"
+                            <path d="M448 768c-17.7 0-32-14.3-32-32V384c0-17.7 14.3-32 32-32s32 14.3 32 32v352c0 17.7-14.3 32-32 32zM576 768c-17.7 0-32-14.3-32-32V384c0-17.7 14.3-32 32-32s32 14.3 32 32v352c0 17.7-14.3 32-32 32z"
                                 fill="#243154"></path>
                         </svg>
                     </button>

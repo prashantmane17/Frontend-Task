@@ -1,29 +1,16 @@
 const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
 const totalProduct = document.getElementById("total_products");
+const filterName = document.getElementById("change_filter_name");
 let products = [];
 const intialCall = async () => {
     const resonse = await fetch("data/products.json");
     const data = await resonse.json();
     const sortedData = data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     products = sortedData;
-    return sortedData;
+    sortedProducts("all", sortedData)
 }
-intialCall().then(data => {
-    data.forEach(product => {
-        product_cards(product)
-        const filteredProduct = document.querySelectorAll(".product_card");
-        if (filteredProduct.length === 0) {
-            productContainer.classList.add("empty_products")
-            productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
-        }
-        totalProduct.textContent = filteredProduct.length
-
-    });
-    addToCartFun();
-}).catch(error => {
-    console.error("err")
-})
+intialCall();
 document.getElementById("sort_select").addEventListener("change", (e) => {
     const value = e.target.value;
     if (value === "low_high") {
@@ -31,10 +18,10 @@ document.getElementById("sort_select").addEventListener("change", (e) => {
     } else {
         products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     }
-
     productContainer.innerHTML = "";
     const filter_option = document.querySelector(".filter_option.active");
     const category = filter_option.dataset.category;
+    const name = filter_option.innerText;
     sortedProducts(category, products)
 });
 const addToCartFun = () => {
@@ -133,11 +120,12 @@ filter_options.forEach(option => {
         })
         e.target.classList.add("active")
         const category = e.target.dataset.category;
-        sortedProducts(category, products);
+        const name = e.target.innerText;
+        sortedProducts(category, products, name);
     })
 })
 
-const sortedProducts = (category, products) => {
+const sortedProducts = (category, products, name) => {
     productContainer.innerHTML = "";
     productContainer.classList.remove("empty_products")
 
@@ -153,6 +141,7 @@ const sortedProducts = (category, products) => {
         productContainer.classList.add("empty_products")
         productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
     }
+    filterName.innerText = name || "All Products";
     totalProduct.textContent = filteredProduct.length
     addToCartFun();
 }

@@ -4,19 +4,28 @@ const cart = document.getElementById("product_cart");
 const cartFooter = document.getElementById("cartFooter");
 const cartValue = document.getElementById("cartValue");
 const closeDrawer = document.getElementById("closeCartDrawer");
+const cartOverlay = document.getElementById("cartOverlay");
+const body = document.querySelector("body");
 let cartProducts = [];
+const toggleCart = (open) => {
+    cartDrawer.classList.toggle("active", open);
+    cartOverlay.classList.toggle("active", open);
+    body.classList.toggle("no-scroll", open);
+};
 cart.addEventListener("click", () => {
-    cartDrawer.classList.add("active")
+    toggleCart(true);
 })
 closeDrawer.addEventListener("click", () => {
-    cartDrawer.classList.remove("active")
+    toggleCart(false)
+})
+cartOverlay.addEventListener("click", () => {
+    toggleCart(false)
 })
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("addToCartButton")) {
         const productId = e.target.dataset.id;
         const productSizeId = e.target.dataset.sizeid;
-        console.log("jiii---", productSizeId)
-        cartDrawer.classList.add("active");
+        toggleCart(true)
         const addToCartButton = document.getElementById(`addToCartButton_${productId}`);
         const sizeText = document.querySelector(`[data-title="sizeTitle${productId}"]`);
         const sizes = document.getElementById(`productSizes_number${productId}`);

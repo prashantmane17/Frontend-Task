@@ -1,3 +1,24 @@
+/* -----------------add to cart msg------------------- */
+#addToCartMsg {
+  position: fixed;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 13rem;
+  text-align: center;
+  background: #000;
+  color: #ffffff;
+  padding: 7px 15px; 
+  border-radius: 10px;
+  opacity: 0;
+  transition: all 0.3s linear;
+}
+#addToCartMsg.active{
+ bottom: 10%;
+ opacity: 1;
+}
+
 
 /* ----------Cart Drawer----------- */
 body.no-scroll {

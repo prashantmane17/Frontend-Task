@@ -5,6 +5,9 @@ const cartFooter = document.getElementById("cartFooter");
 const cartValue = document.getElementById("cartValue");
 const closeDrawer = document.getElementById("closeCartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
+
+const addToCartMsg = document.getElementById("addToCartMsg");
+
 const body = document.querySelector("body");
 let cartProducts = [];
 const toggleCart = (open) => {
@@ -25,7 +28,14 @@ document.addEventListener("click", (e) => {
     if (e.target.classList.contains("addToCartButton")) {
         const productId = e.target.dataset.id;
         const productSizeId = e.target.dataset.sizeid;
-        toggleCart(true)
+
+        // toggleCart(true)
+        addToCartMsg.classList.add("active")
+        setTimeout(() => {
+            addToCartMsg.classList.remove("active")
+
+        }, 1000);
+
         document.getElementById(`addToCartButton_${productId}`).style.display = "none";
         document.querySelector(`[data-title="sizeTitle${productId}"]`).style.display = "block";
         document.getElementById(`productSizes_number${productId}`).style.display = "flex";

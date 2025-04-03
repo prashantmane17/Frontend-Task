@@ -295,6 +295,7 @@ nav {
   }
   #all_products_cards{
   justify-content: center;
+
 }
   .product_sections {
     padding: 0 15px;
@@ -346,6 +347,7 @@ nav {
     }
 }
 
+
 @media screen and (min-width: 1024px) {
   nav {
     padding: 16px 25px;
@@ -367,7 +369,7 @@ nav {
   }
   .product_sections {
     padding: 0 25px;
-}
+
 }
 
 @media screen and (min-width: 1200px) {

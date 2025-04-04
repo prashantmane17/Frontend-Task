@@ -2,7 +2,9 @@ const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
 const filterLabels = document.querySelector(".filterLabels");
 const totalProduct = document.getElementById("total_products");
+
 const filters_label = document.getElementById("filters_label");
+
 const filterName = document.getElementById("change_filter_name");
 let products = [];
 const intialCall = async () => {
@@ -11,6 +13,7 @@ const intialCall = async () => {
     const sortedData = data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     products = sortedData;
     sortedProducts("all", sortedData)
+
 }
 intialCall();
 function handleToggle(event) {
@@ -40,6 +43,7 @@ function MobileFilter() {
 
 MobileFilter();
 window.addEventListener('resize', MobileFilter);
+
 document.getElementById("sort_select").addEventListener("change", (e) => {
     const value = e.target.value;
     if (value === "low_high") {

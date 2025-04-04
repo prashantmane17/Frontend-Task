@@ -306,6 +306,7 @@ nav {
     margin: 5px auto;
   }
   #all_products_cards{
+
     grid-template-columns: repeat(2, 1fr);
   justify-content: center;
 }
@@ -454,11 +455,12 @@ nav {
     
 }
 
+
 @media screen and (min-width: 1024px) {
   nav {
     padding: 16px 25px;
   }
-      
+
   .homepage_banner {
     display: flex;
     padding: 13px 0;
@@ -471,6 +473,7 @@ nav {
     flex-direction: row;
     align-items: center;
   }
+
     #all_products_cards{
     grid-template-columns: repeat(4, 1fr);
 }
@@ -478,6 +481,7 @@ nav {
   .product_sections {
     padding: 0 25px;
 }
+
 }
 
 @media screen and (min-width: 1200px) {
@@ -493,5 +497,5 @@ nav {
     #all_products_cards{
         grid-template-columns: repeat(auto-fit,minmax(262px, 1fr));
     }
-    
+
 }

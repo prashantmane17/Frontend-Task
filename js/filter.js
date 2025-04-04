@@ -151,6 +151,8 @@ filter_options.forEach(option => {
     option.addEventListener('click', (e) => {
         filter_options.forEach(option => {
             option.classList.remove("active");
+            filterLabels.classList.remove('visible');
+            filterLabels.classList.add('hidden');
         })
         e.target.classList.add("active")
         const category = e.target.dataset.category;

@@ -89,7 +89,7 @@ const formatProductSize = (size) => {
         case "44": return "L";
         case "48": return "XL";
         case "46": return "XL";
-        default: return "Unknown"; // Handle unexpected values
+        default: return size;
     }
 };
 const formatProductSizeNumber = (size) => {
@@ -99,7 +99,7 @@ const formatProductSizeNumber = (size) => {
         case "medium": return "40";
         case "large": return "44";
         case "xl": return "48";
-        default: return size; // Handle unexpected values
+        default: return size;
     }
 };
 
@@ -107,6 +107,7 @@ const formatProductSizeNumber = (size) => {
 function product_cards(product) {
     const productCard = document.createElement("div");
     productCard.classList.add("product_card");
+    const discountRate = ((Number(product.compare_at_price) - Number(product.price)) / Number(product.compare_at_price)) * 100;
     productCard.innerHTML = ` <div class="product-image">
                     <img src=${product.image_src} class=""
                         alt=${product.name} />
@@ -141,7 +142,7 @@ function product_cards(product) {
                     <div class="product-pricing">
                         <p class="price">$${product.price}</p>
                         <p class="mrp-price"> $${product.compare_at_price}</p>
-                        <p class="discount">(50% OFF)</p>
+                        <p class="discount">(${discountRate.toFixed(0)}% OFF)</p>
                     </div>
                 </div>`;
     productContainer.appendChild(productCard);

@@ -2,6 +2,7 @@ const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
 const filterLabels = document.querySelector(".filterLabels");
 const totalProduct = document.getElementById("total_products");
+const productSearch = document.getElementById("productSearch");
 
 const filters_label = document.getElementById("filters_label");
 
@@ -157,15 +158,20 @@ filter_options.forEach(option => {
         sortedProducts(category, products, name);
     })
 })
-
+productSearch.addEventListener('input', () => {
+    const selectedcategory = document.querySelector(".filter_option.active");
+    const category = selectedcategory.dataset.category;
+    const name = selectedcategory.innerText;
+    sortedProducts(category, products, name);
+})
 const sortedProducts = (category, products, name) => {
     productContainer.innerHTML = "";
     productContainer.classList.remove("empty_products")
-
+    const searchItemName = productSearch.value;
     products.forEach(product => {
-        if (category === "all") {
+        if (category === "all" && product.vendor.toLowerCase().includes(searchItemName.toLowerCase())) {
             product_cards(product)
-        } else if (product.tag === category) {
+        } else if (product.tag === category && product.vendor.toLowerCase().includes(searchItemName.toLowerCase())) {
             product_cards(product)
         }
     })

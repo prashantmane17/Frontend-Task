@@ -1,6 +1,10 @@
 const productContainer = document.getElementById("all_products_cards");
 const filter_options = document.querySelectorAll(".filter_option");
+const filterLabels = document.querySelector(".filterLabels");
 const totalProduct = document.getElementById("total_products");
+
+const filters_label = document.getElementById("filters_label");
+
 const filterName = document.getElementById("change_filter_name");
 let products = [];
 const intialCall = async () => {
@@ -9,8 +13,37 @@ const intialCall = async () => {
     const sortedData = data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     products = sortedData;
     sortedProducts("all", sortedData)
+
 }
 intialCall();
+function handleToggle(event) {
+    event.stopPropagation();
+    filterLabels.classList.toggle('visible');
+    filterLabels.classList.toggle('hidden');
+}
+
+function handleOutsideClick(event) {
+    if (!filterLabels.contains(event.target) && !filters_label.contains(event.target)) {
+        filterLabels.classList.add('hidden');
+        filterLabels.classList.remove('visible');
+    }
+}
+
+function MobileFilter() {
+    if (window.innerWidth < 768) {
+        filters_label.addEventListener('click', handleToggle);
+        document.addEventListener('click', handleOutsideClick);
+    } else {
+        filters_label.removeEventListener('click', handleToggle);
+        document.removeEventListener('click', handleOutsideClick);
+        filterLabels.classList.remove('hidden');
+        filterLabels.classList.remove('visible');
+    }
+}
+
+MobileFilter();
+window.addEventListener('resize', MobileFilter);
+
 document.getElementById("sort_select").addEventListener("change", (e) => {
     const value = e.target.value;
     if (value === "low_high") {

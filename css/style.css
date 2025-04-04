@@ -170,6 +170,7 @@ nav {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
+  position: relative;
 }
 .product_card {
   width: 262px;
@@ -288,6 +289,9 @@ nav {
   text-align: center;
   font-size: 25px;
   color: #c4c4c4;
+  position: absolute;
+  width: 100%;
+  top: 100%;
   text-transform: capitalize;
 }
 
@@ -329,7 +333,7 @@ nav {
 
     .product_card .productActions .productSizes_number button {
     padding: 2px 4px;
-    font-size: 12px;
+    font-size: 9px;
 }
 
 
@@ -417,6 +421,7 @@ nav {
 }
 .product_card .productActions .productSizes_tag button {
     padding: 3px 4px;
+    font-size: 12px;
 }
 }
 @media screen and (min-width: 768px) {

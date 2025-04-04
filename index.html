@@ -78,13 +78,15 @@
             Products)</div>
         <div class="filters_container">
             <div class="filters">
-                <span class="filters_label">FILTERS:</span>
-                <div class="filter_option active" data-category="all">All Products</div>
-                <div class="filter_option" data-category="T-shirt">Tee Shirts</div>
-                <div class="filter_option" data-category="Denim">Denim</div>
-                <div class="filter_option" data-category="Sweatshirt">Sweatshirts</div>
-                <div class="filter_option" data-category="Polo-T">Polo Tee Shirts</div>
-                <div class="filter_option" data-category="shirt">Shirt</div>
+                <span class="filters_label" id="filters_label">FILTERS:</span>
+                <div class="filterLabels hidden">
+                    <div class="filter_option active" data-category="all">All Products</div>
+                    <div class="filter_option" data-category="T-shirt">Tee Shirts</div>
+                    <div class="filter_option" data-category="Denim">Denim</div>
+                    <div class="filter_option" data-category="Sweatshirt">Sweatshirts</div>
+                    <div class="filter_option" data-category="Polo-T">Polo Tee Shirts</div>
+                    <div class="filter_option" data-category="shirt">Shirt</div>
+                </div>
             </div>
             <div class="sort_container">
                 <span class="sort_label">Sort by:</span>
@@ -92,6 +94,10 @@
                     <option value="low_high">Price Low To High</option>
                     <option value="high_low">Price High To Low</option>
                 </select>
+                <div id="mobile_sort_options" class="dropdown_options hidden">
+                    <div onclick="selectOption('low_high')">Price Low To High</div>
+                    <div onclick="selectOption('high_low')">Price High To Low</div>
+                </div>
             </div>
         </div>
         <div class="space_divider"></div>

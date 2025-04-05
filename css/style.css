@@ -28,14 +28,8 @@ nav {
   height: 38px;
 }
 .navbar_options {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   gap: 15px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .navBar_lists .navbar_options a {
   text-decoration: none;
@@ -296,6 +290,9 @@ nav {
   nav {
     padding: 16px 15px;
   }
+  .navBar_icons .stateChange{
+    display: block;
+  }
   .navBar_icons .icon-hamburger-mobile, .navBar_icons .icon-close{
     width: 20px;
     height: 16px;
@@ -390,17 +387,17 @@ nav {
     display: flex;
     flex-direction: column;
     top: 100%;
-    transform: unset;
-    left: 0;
     background: white;
     width: 100vw;
-    left: 0;
+    left:-100%;
     margin-left: -15px;
     height: 100vh;
+    transform: unset;
     justify-content: unset;
     max-width: 69%;
     align-items: start;
     padding: 17px;
+    transition: left 0.3s linear;
   }
 
   .dropdown_options {
@@ -461,6 +458,21 @@ nav {
   }
   .navbar_options {
     display: flex;
+    flex-direction: row;
+    background: transparent;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 0;
+    height: unset;
+    justify-content: center;
+    max-width: unset;
+    align-items: center;
+    padding: 0;
+    transition: left 0.3s linear;
+  }
+  .navBar_icons .stateChange{
+    display: none;
   }
   #all_products_cards {
     grid-template-columns: repeat(3, 1fr);

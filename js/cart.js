@@ -44,6 +44,13 @@ document.addEventListener("click", (e) => {
         cartProducts = [];
         updateCart();
     }
+    else if (
+        !navbarDrawer.contains(e.target) &&
+        !openNavBar.contains(e.target) &&
+        navbarDrawer.style.left === "0px"
+    ) {
+        toggleDrawer(false);
+    }
 });
 const addToCart = (productId, productSizeId) => {
     const product = cartProducts.find(item => productSizeId === item.productId.toString());

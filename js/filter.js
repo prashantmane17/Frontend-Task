@@ -5,8 +5,24 @@ const totalProduct = document.getElementById("total_products");
 const productSearch = document.getElementById("productSearch");
 
 const filters_label = document.getElementById("filters_label");
-
 const filterName = document.getElementById("change_filter_name");
+const openNavBar = document.getElementById("hamburgerIcon");
+const closeNavBar = document.getElementById("closeIcon");
+const navbarDrawer = document.getElementById("navBarList_optoins");
+
+const toggleDrawer = (open) => {
+    navbarDrawer.style.left = open ? "0" : "-100%";
+    cartOverlay.classList.toggle("active", open);
+    openNavBar.classList.toggle("active", !open);
+    closeNavBar.classList.toggle("active", open);
+};
+
+openNavBar.addEventListener("click", () => toggleDrawer(true));
+closeNavBar.addEventListener("click", () => toggleDrawer(false));
+
+
+
+
 let products = [];
 const intialCall = async () => {
     const resonse = await fetch("data/products.json");

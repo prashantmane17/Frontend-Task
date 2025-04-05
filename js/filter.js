@@ -21,12 +21,14 @@ function handleToggle(event) {
     event.stopPropagation();
     filterLabels.classList.toggle('visible');
     filterLabels.classList.toggle('hidden');
+    cartOverlay.classList.toggle("active")
 }
 
 function handleOutsideClick(event) {
     if (!filterLabels.contains(event.target) && !filters_label.contains(event.target)) {
         filterLabels.classList.add('hidden');
         filterLabels.classList.remove('visible');
+        cartOverlay.classList.remove("active")
     }
 }
 
@@ -64,7 +66,6 @@ const addToCartFun = () => {
         item.addEventListener('click', (e) => {
             const id = e.currentTarget.dataset.id;
             const sizeId = e.currentTarget.dataset.sizeid;
-            console.log("Selected Size ID:", sizeId);
             const addToCartButton = document.getElementById(`addToCartButton_${id}`);
             const sizeText = document.querySelector(`[data-title="sizeTitle${id}"]`);
             const sizes = document.getElementById(`productSizes_number${id}`);
@@ -152,8 +153,11 @@ filter_options.forEach(option => {
     option.addEventListener('click', (e) => {
         filter_options.forEach(option => {
             option.classList.remove("active");
-            filterLabels.classList.remove('visible');
-            filterLabels.classList.add('hidden');
+            if (window.innerWidth < 768) {
+                cartOverlay.classList.remove("active")
+                filterLabels.classList.remove('visible');
+                filterLabels.classList.add('hidden');
+            }
         })
         e.target.classList.add("active")
         const category = e.target.dataset.category;
@@ -183,7 +187,7 @@ const sortedProducts = (category, products, name) => {
         productContainer.classList.add("empty_products")
         productContainer.innerHTML = "<div class='empty_msg'>Products not found</div>";
     }
-    filterName.innerText = name || "All Products";
+    filterName.innerText = name?.trim() || "All Products";
     totalProduct.textContent = filteredProduct.length
     addToCartFun();
 }

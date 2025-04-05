@@ -17,7 +17,25 @@
 <body>
     <nav>
         <div class="navBar_lists">
-            <div><img src="./assets/svg/favicon 1.svg" alt="" /></div>
+            <div class="navBar_icons">
+                <div>
+                    <span class="icon-hamburger-mobile "><svg focusable="false" viewBox="0 0 20 16" role="presentation">
+                            <path d="M0 14h20v2H0v-2zM0 0h20v2H0V0zm0 7h20v2H0V7z" fill="currentColor"
+                                fill-rule="evenodd">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="icon-close active">
+                        <svg focusable="false" viewBox="0 0 19 19" role="presentation">
+                            <path
+                                d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
+                                fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </div>
+
+                <img src="./assets/svg/favicon 1.svg" alt="" />
+            </div>
             <div class="navbar_options">
                 <a href="#">Shop</a>
                 <a href="#">About Us</a>
@@ -56,7 +74,13 @@
             </button>
         </div>
 
-        <div class="cartProducts" id="cartContainer"></div>
+        <div class="cartProducts" id="cartContainer">
+            <div class="cartEmptyMsg">
+                <p>Your cart is empty</p>
+                <p>Add your favorite items to your cart</p>
+                <a href="#">Shop</a>
+            </div>
+        </div>
         <div class="cartFooter" id="cartFooter"></div>
         <div class="cartFooter" id="cartFooter"></div>
     </div>
@@ -74,7 +98,7 @@
             Home / Clothing / Mens Clothing / <span>All Mens Clothing</span>
         </div>
         <div class="filter_name">
-            <span id="change_filter_name">All Products</span>(
+            <span id="change_filter_name">All Products</span> (
             <span id="total_products">25</span> Products)
         </div>
         <div class="filters_container">

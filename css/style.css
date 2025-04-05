@@ -296,6 +296,27 @@ nav {
   nav {
     padding: 16px 15px;
   }
+  .navBar_icons .icon-hamburger-mobile, .navBar_icons .icon-close{
+    width: 20px;
+    height: 16px;
+    display: block;
+    transform: scale(0.1);
+    opacity: 0;
+    transition: opacity .35s ease-in-out, transform .35s ease-in-out;
+  }
+  .navBar_icons .icon-hamburger-mobile.active{
+    transform: translateY(50%) scale(1);
+    opacity: 1;
+  }
+  .navBar_icons .icon-close.active{
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  .navBar_lists .navBar_icons{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
   .homepage_banner {
     display: block;
     font-size: 13px;
@@ -346,10 +367,10 @@ nav {
   .filters_container .filters .filterLabels {
     display: none;
     flex-direction: column;
-    position: absolute;
-    top: 25px;
+    position: fixed;
+    bottom: 0;
     left: 0;
-    width: 50vw;
+    width: 100%;
     padding: 10px;
     background: #fff;
     z-index: 10;
@@ -366,7 +387,20 @@ nav {
     gap: 10px;
   }
   .navbar_options {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    top: 100%;
+    transform: unset;
+    left: 0;
+    background: white;
+    width: 100vw;
+    left: 0;
+    margin-left: -15px;
+    height: 100vh;
+    justify-content: unset;
+    max-width: 69%;
+    align-items: start;
+    padding: 17px;
   }
 
   .dropdown_options {

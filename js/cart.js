@@ -5,7 +5,6 @@ const cartFooter = document.getElementById("cartFooter");
 const cartValue = document.getElementById("cartValue");
 const closeDrawer = document.getElementById("closeCartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
-
 const addToCartMsg = document.getElementById("addToCartMsg");
 
 const body = document.querySelector("body");
@@ -53,7 +52,6 @@ const addToCart = (productId, productSizeId) => {
     }
     else {
         const selectedItem = products.find(item => productId === item.id.toString());
-        console.log("cart---", selectedItem)
         if (selectedItem) {
             cartProducts.push({ ...selectedItem, quantity: 1, productId: productSizeId });
         }
@@ -71,7 +69,7 @@ const updateCart = () => {
         <div class="cartEmptyMsg">
                 <p>Your cart is empty</p>
                 <p>Add your favorite items to your cart</p>
-                <a href="/">Shop</a>
+                <a href="#">Shop</a>
             </div>
         `;
         cartContainer.innerHTML = cartEmptyMsg;

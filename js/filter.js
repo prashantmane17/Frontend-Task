@@ -9,7 +9,7 @@ const filterName = document.getElementById("change_filter_name");
 const openNavBar = document.getElementById("hamburgerIcon");
 const closeNavBar = document.getElementById("closeIcon");
 const navbarDrawer = document.getElementById("navBarList_optoins");
-
+let sortbyPrice = document.getElementById("sort_select")
 const toggleDrawer = (open) => {
     navbarDrawer.style.left = open ? "0" : "-100%";
     cartOverlay.classList.toggle("active", open);
@@ -19,9 +19,6 @@ const toggleDrawer = (open) => {
 
 openNavBar.addEventListener("click", () => toggleDrawer(true));
 closeNavBar.addEventListener("click", () => toggleDrawer(false));
-
-
-
 
 let products = [];
 const intialCall = async () => {
@@ -33,6 +30,19 @@ const intialCall = async () => {
 
 }
 intialCall();
+const handleSorting = (e) => {
+    const value = e.target.value;
+    if (value === "low_high") {
+        products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else {
+        products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    }
+    productContainer.innerHTML = "";
+    const filter_option = document.querySelector(".filter_option.active");
+    const category = filter_option.dataset.category;
+    const name = filter_option.innerText;
+    sortedProducts(category, products)
+};
 function handleToggle(event) {
     event.stopPropagation();
     filterLabels.classList.toggle('visible');
@@ -49,33 +59,29 @@ function handleOutsideClick(event) {
 }
 
 function MobileFilter() {
+    const sortMobile = document.getElementById("sort_selectMobile");
+    const sortDesktop = document.getElementById("sort_select");
     if (window.innerWidth < 768) {
         filters_label.addEventListener('click', handleToggle);
         document.addEventListener('click', handleOutsideClick);
+        sortbyPrice = sortMobile;
+        sortDesktop.value = sortMobile.value;
+
     } else {
         filters_label.removeEventListener('click', handleToggle);
         document.removeEventListener('click', handleOutsideClick);
         filterLabels.classList.remove('hidden');
         filterLabels.classList.remove('visible');
+        sortbyPrice = sortDesktop;
+        sortMobile.value = sortDesktop.value;
     }
+    sortbyPrice.addEventListener("change", handleSorting)
 }
 
 MobileFilter();
 window.addEventListener('resize', MobileFilter);
 
-document.getElementById("sort_select").addEventListener("change", (e) => {
-    const value = e.target.value;
-    if (value === "low_high") {
-        products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-    } else {
-        products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-    }
-    productContainer.innerHTML = "";
-    const filter_option = document.querySelector(".filter_option.active");
-    const category = filter_option.dataset.category;
-    const name = filter_option.innerText;
-    sortedProducts(category, products)
-});
+
 const addToCartFun = () => {
     const elements = document.querySelectorAll('[data-size="sizeSelection"]');
     elements.forEach(item => {

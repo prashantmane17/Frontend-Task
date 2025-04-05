@@ -376,7 +376,7 @@ nav {
     border-radius: 5px;
   }
   .filters_container .filters .filter_option {
-    width: 100%;
+    /* width: 100%; */
     border: none;
     text-align: center;
   }
@@ -399,30 +399,24 @@ nav {
     padding: 17px;
     transition: left 0.3s linear;
   }
-
-  .dropdown_options {
-    display: block;
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-    z-index: 100;
-    width: 100%;
-    max-width: 250px;
-  }
-
-  .dropdown_options.hidden {
-    display: none;
-  }
-
-  .dropdown_options div {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-  }
-
-  .dropdown_options div:hover {
-    background: #f0f0f0;
+.sort_container{
+display: none;
+}
+ .sort_containerMobile{
+  display: block;
+  border: 1px solid #c4c4c4;
+  border-radius: 42px;
+  padding: 8px 15px;
+  color: #878787;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+ }
+  .sort_containerMobile #sort_selectMobile{
+  border: none;
+  outline: none;
+  font-weight: 500;
+  color: #000;
   }
   .product_card .productActions .productSizes_tag {
     font-size: 11px;
@@ -487,7 +481,7 @@ nav {
     width: unset;
     padding: unset;
     background: unset;
-    z-index: 10;
+    z-index: 0;
     gap: 3px;
     box-shadow: unset;
     border-radius: unset;
@@ -504,6 +498,12 @@ nav {
         font-size: 14px;
         gap: 8px ;
     }
+    .sort_containerMobile{
+  display: none;
+ }
+ .sort_container{
+display: block;
+}
 }
 
 @media screen and (min-width: 1024px) {
